@@ -1,6 +1,6 @@
 package fp.universidad.tipos;
 
-public record Nota(Asignatura asignatura, int cursoAcademico, Convocatoria convocatoria, double valor, boolean matricula) {
+public record Nota(Asignatura asignatura, int cursoAcademico, TipoConvocatoria convocatoria, double valor, boolean matricula) {
 	
 	public Nota {
 		checkNota(valor, matricula);
@@ -39,6 +39,16 @@ public record Nota(Asignatura asignatura, int cursoAcademico, Convocatoria convo
             throw new IllegalArgumentException(
 					"Nota inválida");
         }
+	}
+	
+	public boolean equals(Nota o) {
+		if (this.cursoAcademico == o.cursoAcademico && 
+				this.asignatura == o.asignatura && 
+				this.convocatoria == o.convocatoria) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	public String toString() {

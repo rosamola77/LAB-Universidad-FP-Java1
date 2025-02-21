@@ -60,6 +60,14 @@ public record Tutoria(DayOfWeek dia, LocalTime horaInicio, LocalTime horaFin, in
     public int getDuracion() {
         return duracion;
     }
+    
+    public boolean equals(Tutoria o) {
+    	if (this.dia == o.dia && this.horaInicio == o.horaInicio) {
+    		return true;
+    	} else {
+    		return false;
+    	}
+    }
 
     public String toString() {
         return DIA_INICIAL_MAP.get(dia) + " " + getHoraInicio().truncatedTo(ChronoUnit.MINUTES) + "-" + getHoraFin().truncatedTo(ChronoUnit.MINUTES);
