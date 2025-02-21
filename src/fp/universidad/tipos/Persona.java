@@ -10,7 +10,7 @@ public class Persona implements Comparable<Persona> {
 	
 	public Persona(String dni, String nombre, String apellidos, String email, LocalDate fechaNacimiento) {
 		super();
-		checkPersona(dni, email);
+		checkPersona(dni, email, nombre, fechaNacimiento);
 		this.dni = dni;
 		this.nombre = nombre;
 		this.apellidos = apellidos;
@@ -22,7 +22,7 @@ public class Persona implements Comparable<Persona> {
 	public Persona(String dni, String nombre, String apellidos, LocalDate fechaNacimiento) {
 		super();
 		this.email = "";
-		checkPersona(dni, email);
+		checkPersona(dni, email, nombre, fechaNacimiento);
 		this.dni = dni;
 		this.nombre = nombre;
 		this.apellidos = apellidos;
@@ -31,7 +31,7 @@ public class Persona implements Comparable<Persona> {
 
 	}
 	
-	private void checkPersona(String dni, String email) {
+	private void checkPersona(String dni, String email, String nombre, LocalDate fecha) {
 		if (dni.length() == 9) {
 			String numeros = dni.substring(0, 8);
 		    char letra = dni.charAt(8);
@@ -48,6 +48,16 @@ public class Persona implements Comparable<Persona> {
 		} else if (!(email.contains("@"))) {
 			throw new IllegalArgumentException(
 					"El email debe contener una '@'");
+		}
+		
+		if (nombre.isEmpty()) {
+			throw new IllegalArgumentException("El mombre no puede estar vacío");
+		}
+		
+		if (fecha.isAfter(LocalDate.now())) {
+			throw new IllegalArgumentException("Fecha no válida: No puedes haber nacido mañana payasete");
+		} else if (fecha.isBefore(LocalDate.of(1900, 1, 1))) {
+			throw new IllegalArgumentException("Fecha no válida: Con esa edad casi con total seguridad estás bajo tierra");
 		}
 		
 	}
@@ -100,12 +110,13 @@ public class Persona implements Comparable<Persona> {
 		this.fechaNacimiento = fechaNacimiento;
 	}
 	
-	public int compareTo(Persona p) {
-		int r = apellidos.compareTo(p.getApellidos());
+	public int compareTo(Persona o) {
+		int r = apellidos.compareTo(o.getApellidos());
 		if (r == 0) {
-			r = nombre.compareTo(p.getNombre());
-		} else if (r == 0) {
-			r = dni.compareTo(p.getDni());
+			r = nombre.compareTo(o.getNombre());
+			 if (r == 0) {
+					r = dni.compareTo(o.getDni());
+			 }
 		}
 		return r;
 	}

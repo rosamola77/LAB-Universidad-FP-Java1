@@ -1,6 +1,6 @@
 package fp.universidad.tipos;
 
-public class Espacio {
+public class Espacio implements Comparable<Espacio>{
 		
 	private String nombre;
 	private int capacidad, planta;
@@ -60,5 +60,15 @@ public class Espacio {
 			return false;
 		}
 	}
+
+	public int compareTo(Espacio o) {
+		int r = Integer.valueOf(planta).compareTo(Integer.valueOf(o.planta));
+		if (r == 0) {
+			r = nombre.compareTo(o.getNombre());
+		}
+		return r;
+	}
+	
+	
 	
 }

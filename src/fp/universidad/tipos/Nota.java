@@ -1,6 +1,6 @@
 package fp.universidad.tipos;
 
-public record Nota(Asignatura asignatura, int cursoAcademico, TipoConvocatoria convocatoria, double valor, boolean matricula) {
+public record Nota(Asignatura asignatura, int cursoAcademico, TipoConvocatoria convocatoria, double valor, boolean matricula) implements Comparable<Nota>{
 	
 	public Nota {
 		checkNota(valor, matricula);
@@ -20,19 +20,19 @@ public record Nota(Asignatura asignatura, int cursoAcademico, TipoConvocatoria c
 		
 	}
 	
-	public Calificacion getCalificacion(double valor, boolean matricula) {
+	public TipoCalificacion getCalificacion(double valor, boolean matricula) {
 		
 		if (valor < 5 && valor >= 0) {
-            return Calificacion.SUSPENSO;
+            return TipoCalificacion.SUSPENSO;
         } else if (valor < 7) {
-            return Calificacion.APROBADO;
+            return TipoCalificacion.APROBADO;
         } else if (valor < 9) {
-            return Calificacion.NOTABLE;
+            return TipoCalificacion.NOTABLE;
         } else if (valor <= 10) {
         	if (matricula == true) {
-        		return Calificacion.MATRICULA_DE_HONOR;
+        		return TipoCalificacion.MATRICULA_DE_HONOR;
         	} else {
-        		return Calificacion.SOBRESALIENTE;
+        		return TipoCalificacion.SOBRESALIENTE;
         	}
             
         } else {
@@ -49,6 +49,17 @@ public record Nota(Asignatura asignatura, int cursoAcademico, TipoConvocatoria c
 		} else {
 			return false;
 		}
+	}
+	
+	public int compareTo(Nota o) {
+		int r = Integer.valueOf(cursoAcademico).compareTo(Integer.valueOf(o.cursoAcademico));
+		if (r == 0) {
+			r = asignatura.compareTo(o.asignatura);
+			if (r == 0) {
+				r = convocatoria.compareTo(o.convocatoria);
+			}
+		}
+		return r;
 	}
 
 	public String toString() {

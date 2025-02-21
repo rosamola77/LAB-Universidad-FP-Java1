@@ -1,5 +1,5 @@
 package fp.universidad.tipos;
 
-public enum Categoria {
+public enum TipoCategoria {
 	CATEDRATICO, TITULAR, CONTRATADO_DOCTOR, AYUDANTE_DOCTOR, AYUDANTE, INTERINO
 }

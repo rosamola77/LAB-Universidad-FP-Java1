@@ -7,7 +7,7 @@ import java.time.DayOfWeek;
 import java.util.HashMap;
 import java.util.Map;
 
-public record Tutoria(DayOfWeek dia, LocalTime horaInicio, LocalTime horaFin, int duracion) {
+public record Tutoria(DayOfWeek dia, LocalTime horaInicio, LocalTime horaFin, int duracion) implements Comparable<Tutoria> {
 	
 	public Tutoria {
 		checkTutoria(dia, duracion);
@@ -62,11 +62,19 @@ public record Tutoria(DayOfWeek dia, LocalTime horaInicio, LocalTime horaFin, in
     }
     
     public boolean equals(Tutoria o) {
-    	if (this.dia == o.dia && this.horaInicio == o.horaInicio) {
+    	if (dia == o.dia && this.horaInicio == o.horaInicio) {
     		return true;
     	} else {
     		return false;
     	}
+    }
+    
+    public int compareTo(Tutoria o) {
+    	int r = dia.compareTo(o.dia);
+    	if (r == 0) {
+    		r = horaInicio.compareTo(o.horaInicio);
+    	}
+    	return r;
     }
 
     public String toString() {

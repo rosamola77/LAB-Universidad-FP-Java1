@@ -2,7 +2,7 @@ package fp.universidad.tipos;
 
 import java.time.LocalDate;
 
-public record Asignatura(String nombre, TipoAsignatura tipo, int codigo, float creditos, int curso) {
+public record Asignatura(String nombre, TipoAsignatura tipo, int codigo, float creditos, int curso) implements Comparable<Asignatura> {
 	
 		public Asignatura {
 			checkAsignatura(nombre, codigo, creditos);
@@ -49,6 +49,11 @@ public record Asignatura(String nombre, TipoAsignatura tipo, int codigo, float c
 			} else {
 				return false;
 			}
+		}
+
+		public int compareTo(Asignatura o) {
+			int r = Integer.valueOf(codigo).compareTo(Integer.valueOf(o.codigo));
+			return r;
 		}
 		
 		
