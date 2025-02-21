@@ -5,13 +5,9 @@ public class Espacio {
 	private String nombre;
 	private int capacidad, planta;
 	private TipoEspacio tipo;
-	
-	public Espacio() {
-		checkEspacio(capacidad);
-	}
 
 	public Espacio(String nombre, int capacidad, final int planta, TipoEspacio tipo) {
-		super();
+		checkEspacio(capacidad);
 		this.nombre = nombre;
 		this.capacidad = capacidad;
 		this.planta = planta;
@@ -57,6 +53,12 @@ public class Espacio {
 		return nombre + " (planta " + planta + ")";
 	}
 	
-	
+	public boolean equals(Espacio o) {
+		if (this.nombre == o.nombre && this.planta == o.planta) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 	
 }

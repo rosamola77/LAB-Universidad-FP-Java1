@@ -33,8 +33,6 @@ public record Asignatura(String nombre, TipoAsignatura tipo, int codigo, float c
 			
 			
 		}
-		
-		
 
 		public String getAcrónimo() {
 			//TODO
@@ -44,5 +42,15 @@ public record Asignatura(String nombre, TipoAsignatura tipo, int codigo, float c
 		public String toString() {
 			return "(" + codigo + ") " + nombre;
 		}
+		
+		public boolean equals(Asignatura o) {
+			if (this.codigo == o.codigo) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+		
+		
 
 }

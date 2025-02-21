@@ -2,7 +2,7 @@ package fp.universidad.tipos;
 
 import java.time.LocalDate;
 
-public class Persona {
+public class Persona implements Comparable<Persona> {
 	
 	private String dni, nombre, apellidos, email;
 	private int edad;
@@ -99,7 +99,25 @@ public class Persona {
 	public void setFechaNacimiento(LocalDate fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
 	}
+	
+	public int compareTo(Persona p) {
+		int r = apellidos.compareTo(p.getApellidos());
+		if (r == 0) {
+			r = nombre.compareTo(p.getNombre());
+		} else if (r == 0) {
+			r = dni.compareTo(p.getDni());
+		}
+		return r;
+	}
 
+	public boolean equals(Persona o) {
+		if (this.dni == o.dni && this.nombre == o.nombre && this.apellidos == o.apellidos) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
 	public String toString() {
 		return dni + " - " + apellidos + ", " + nombre + " - " + fechaNacimiento.getDayOfMonth() + "/" + fechaNacimiento.getMonthValue() + "/" + fechaNacimiento.getYear();
 	}
