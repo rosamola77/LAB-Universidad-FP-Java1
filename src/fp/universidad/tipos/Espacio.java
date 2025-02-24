@@ -1,7 +1,7 @@
 package fp.universidad.tipos;
 
 public class Espacio implements Comparable<Espacio>{
-		
+
 	private String nombre;
 	private int capacidad, planta;
 	private TipoEspacio tipo;

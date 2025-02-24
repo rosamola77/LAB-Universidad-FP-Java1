@@ -5,7 +5,6 @@ import java.time.LocalDate;
 public class Persona implements Comparable<Persona> {
 	
 	private String dni, nombre, apellidos, email;
-	private int edad;
 	private LocalDate fechaNacimiento;
 	
 	public Persona(String dni, String nombre, String apellidos, String email, LocalDate fechaNacimiento) {
@@ -15,7 +14,6 @@ public class Persona implements Comparable<Persona> {
 		this.nombre = nombre;
 		this.apellidos = apellidos;
 		this.email = email;
-		this.edad = LocalDate.now().getYear() - fechaNacimiento.getYear();
 		this.fechaNacimiento = fechaNacimiento;
 	}
 	
@@ -26,7 +24,6 @@ public class Persona implements Comparable<Persona> {
 		this.dni = dni;
 		this.nombre = nombre;
 		this.apellidos = apellidos;
-		this.edad = LocalDate.now().getYear() - fechaNacimiento.getYear();
 		this.fechaNacimiento = fechaNacimiento;
 
 	}
@@ -95,11 +92,7 @@ public class Persona implements Comparable<Persona> {
 	}
 
 	public int getEdad() {
-		return edad;
-	}
-
-	public void setEdad(int edad) {
-		this.edad = edad;
+		return LocalDate.now().getYear() - fechaNacimiento.getYear();
 	}
 
 	public LocalDate getFechaNacimiento() {
@@ -121,16 +114,26 @@ public class Persona implements Comparable<Persona> {
 		return r;
 	}
 
-	public boolean equals(Persona o) {
-		if (this.dni == o.dni && this.nombre == o.nombre && this.apellidos == o.apellidos) {
-			return true;
+	public boolean equals(Object o) {
+		if (o instanceof Persona) {
+			Persona a = (Persona) o;
+			if (this.dni == a.dni && this.nombre == a.nombre && this.apellidos == a.apellidos) {
+				return true;
+			} else {
+				return false;
+			}
 		} else {
 			return false;
 		}
 	}
 	
+	public int hashCode() {
+		return this.dni.hashCode() + this.nombre.hashCode()*31 + this.apellidos.hashCode()*31*31;
+	}
+	
 	public String toString() {
-		return dni + " - " + apellidos + ", " + nombre + " - " + fechaNacimiento.getDayOfMonth() + "/" + fechaNacimiento.getMonthValue() + "/" + fechaNacimiento.getYear();
+		return dni + " - " + apellidos + ", " + nombre + " - " + 
+				fechaNacimiento.getDayOfMonth() + "/" + fechaNacimiento.getMonthValue() + "/" + fechaNacimiento.getYear();
 	}
 	
 	

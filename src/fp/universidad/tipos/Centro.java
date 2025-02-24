@@ -60,6 +60,34 @@ public class Centro implements Comparable<Centro>{
 		return r;
 	}
 
+	public ArrayList<Integer> getConteosEspacios() {
+		//TODO
+		return null;
+	}
+	
+	public HashSet<Espacio> getDespachos() {
+		//TODO
+		return null;
+	}
+	
+	public HashSet<Despacho> getDespachos(Departamento d) {
+		//TODO
+		return null;
+	}
 
-
+	public HashSet<Profesores> getProfesores() {
+		//TODO
+		return null;
+	}
+	
+	public HashSet<Profesores> getProfesores(Departamento d) {
+		//TODO
+		return null;
+	}
+	
+	public Espacio getEspacioMayorCapacidad() {
+		//TODO
+		return null;
+	}
+	
 }

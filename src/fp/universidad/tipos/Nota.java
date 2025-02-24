@@ -41,11 +41,16 @@ public record Nota(Asignatura asignatura, int cursoAcademico, TipoConvocatoria c
         }
 	}
 	
-	public boolean equals(Nota o) {
-		if (this.cursoAcademico == o.cursoAcademico && 
-				this.asignatura == o.asignatura && 
-				this.convocatoria == o.convocatoria) {
-			return true;
+	public boolean equals(Object o) {
+		if (o instanceof Nota) {
+			Nota n = (Nota) o;
+			if (this.cursoAcademico == n.cursoAcademico && 
+				this.asignatura == n.asignatura && 
+				this.convocatoria == n.convocatoria) {
+				return true;
+			} else {
+				return false;
+			}
 		} else {
 			return false;
 		}

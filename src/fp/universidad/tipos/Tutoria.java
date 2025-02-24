@@ -2,10 +2,11 @@ package fp.universidad.tipos;
 
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
+
+import fp.utiles.Checkers;
+
 import java.time.Duration;
 import java.time.DayOfWeek;
-import java.util.HashMap;
-import java.util.Map;
 
 public record Tutoria(DayOfWeek dia, LocalTime horaInicio, LocalTime horaFin, int duracion) implements Comparable<Tutoria> {
 	
@@ -14,38 +15,37 @@ public record Tutoria(DayOfWeek dia, LocalTime horaInicio, LocalTime horaFin, in
 	}
 
 	public Tutoria(DayOfWeek dia, LocalTime horaInicio, LocalTime horaFin) {
-		this(dia, horaInicio, horaFin, (int) Duration.between(horaInicio, horaFin).toMinutes());
+		this(dia, horaInicio, horaFin, (Duration.between(horaInicio, horaFin).toMinutesPart()));
 	}
 
 	public Tutoria(DayOfWeek dia, LocalTime horaInicio, int duracion) {
 		this(dia, horaInicio, horaInicio.plusMinutes(duracion), duracion);
 	}
 
-	private static final Map<DayOfWeek, Character> DIA_INICIAL_MAP = new HashMap<>();
-    static {
-        DIA_INICIAL_MAP.put(DayOfWeek.MONDAY, 'L');
-        DIA_INICIAL_MAP.put(DayOfWeek.TUESDAY, 'M');
-        DIA_INICIAL_MAP.put(DayOfWeek.WEDNESDAY, 'X');
-        DIA_INICIAL_MAP.put(DayOfWeek.THURSDAY, 'J');
-        DIA_INICIAL_MAP.put(DayOfWeek.FRIDAY, 'V');
-    }
-
     private void checkTutoria(DayOfWeek dia, int duracion) {
-    	if (dia != DayOfWeek.SATURDAY || dia != DayOfWeek.SUNDAY) {
-    		throw new IllegalArgumentException(
-					"Día inválido, tutorías solo disponibles entre semana");
-    	}
     	if (duracion < 15) {
     		throw new IllegalArgumentException(
 					"La tutoría debe de ser de al menos 15 minutos");
     	}
+    	Checkers.check("Día inválido, tutorías solo disponibles entre semana", 
+    			dia != DayOfWeek.SATURDAY || dia != DayOfWeek.SUNDAY);
+    	Checkers.check("La tutoría debe de ser de al menos 15 minutos", 
+    			duracion >= 15);
     }
     
     private char traducirDia(DayOfWeek dia) {
-        return DIA_INICIAL_MAP.getOrDefault(dia, '?');
+    	return switch(dia) {
+    		case MONDAY -> 'L';
+    		case TUESDAY -> 'M';
+    		case WEDNESDAY -> 'X';
+    		case THURSDAY -> 'J';
+    		case FRIDAY -> 'V';
+    			default -> '?';
+    		};
+    	
     }
 
-    public char getDia() {
+    public char getDia(DayOfWeek dia) {
         return traducirDia(dia);
     }
 
@@ -61,9 +61,14 @@ public record Tutoria(DayOfWeek dia, LocalTime horaInicio, LocalTime horaFin, in
         return duracion;
     }
     
-    public boolean equals(Tutoria o) {
-    	if (dia == o.dia && this.horaInicio == o.horaInicio) {
-    		return true;
+    public boolean equals(Object o) {
+    	if (o instanceof Tutoria) {
+    		Tutoria t = (Tutoria) o;
+    		if (dia == t.dia && this.horaInicio == t.horaInicio) {
+    			return true;
+    		} else {
+    			return false;
+    		}
     	} else {
     		return false;
     	}
@@ -78,6 +83,6 @@ public record Tutoria(DayOfWeek dia, LocalTime horaInicio, LocalTime horaFin, in
     }
 
     public String toString() {
-        return DIA_INICIAL_MAP.get(dia) + " " + getHoraInicio().truncatedTo(ChronoUnit.MINUTES) + "-" + getHoraFin().truncatedTo(ChronoUnit.MINUTES);
+        return getDia(dia) + " " + getHoraInicio().truncatedTo(ChronoUnit.MINUTES) + "-" + getHoraFin().truncatedTo(ChronoUnit.MINUTES);
     }
 }
