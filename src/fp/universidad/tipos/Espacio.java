@@ -1,5 +1,7 @@
 package fp.universidad.tipos;
 
+import java.util.Objects;
+
 public class Espacio implements Comparable<Espacio>{
 
 	private String nombre;
@@ -52,13 +54,19 @@ public class Espacio implements Comparable<Espacio>{
 	public String toString() {
 		return nombre + " (planta " + planta + ")";
 	}
-	
-	public boolean equals(Espacio o) {
-		if (this.nombre == o.nombre && this.planta == o.planta) {
+
+	public int hashCode() {
+		return Objects.hash(nombre, planta);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
 			return true;
-		} else {
+		if (!(obj instanceof Espacio))
 			return false;
-		}
+		Espacio other = (Espacio) obj;
+		return Objects.equals(nombre, other.nombre) && planta == other.planta;
 	}
 
 	public int compareTo(Espacio o) {

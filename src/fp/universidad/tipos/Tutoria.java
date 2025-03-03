@@ -2,6 +2,7 @@ package fp.universidad.tipos;
 
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
+import java.util.Objects;
 
 import fp.utiles.Checkers;
 
@@ -61,6 +62,10 @@ public record Tutoria(DayOfWeek dia, LocalTime horaInicio, LocalTime horaFin, in
         return duracion;
     }
     
+	public int hashCode() {
+		return Objects.hash(dia, horaInicio);
+	}
+
     public boolean equals(Object o) {
     	if (o instanceof Tutoria) {
     		Tutoria t = (Tutoria) o;
@@ -73,8 +78,7 @@ public record Tutoria(DayOfWeek dia, LocalTime horaInicio, LocalTime horaFin, in
     		return false;
     	}
     }
-    
-    public int compareTo(Tutoria o) {
+	public int compareTo(Tutoria o) {
     	int r = dia.compareTo(o.dia);
     	if (r == 0) {
     		r = horaInicio.compareTo(o.horaInicio);

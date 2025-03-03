@@ -1,5 +1,9 @@
 package fp.universidad.tipos;
 
+import java.util.Objects;
+
+import fp.utiles.Checkers;
+
 public record Nota(Asignatura asignatura, int cursoAcademico, TipoConvocatoria convocatoria, double valor, boolean matricula) implements Comparable<Nota>{
 	
 	public Nota {
@@ -7,17 +11,10 @@ public record Nota(Asignatura asignatura, int cursoAcademico, TipoConvocatoria c
 	}
 	
 	private void checkNota(double nota, boolean matricula) {
-		
-		if (nota <= 0 && nota >= 10) {
-			throw new IllegalArgumentException(
-					"Nota fuera del rango permitido");
-		}
-		
-		if (nota < 9 && matricula == true) {
-			throw new IllegalArgumentException(
-					"No se puede tener matrícula de honor con una nota menor de 9");
-		}	
-		
+		Checkers.check("Nota fuera del rango permitido", 
+				!(nota <= 0 && nota >= 10));
+		Checkers.check("No se puede tener matrícula de honor con una nota menor de 9", 
+				!(nota < 9 && matricula == true));
 	}
 	
 	public TipoCalificacion getCalificacion(double valor, boolean matricula) {
@@ -41,19 +38,20 @@ public record Nota(Asignatura asignatura, int cursoAcademico, TipoConvocatoria c
         }
 	}
 	
-	public boolean equals(Object o) {
-		if (o instanceof Nota) {
-			Nota n = (Nota) o;
-			if (this.cursoAcademico == n.cursoAcademico && 
-				this.asignatura == n.asignatura && 
-				this.convocatoria == n.convocatoria) {
-				return true;
-			} else {
-				return false;
-			}
-		} else {
+	@Override
+	public int hashCode() {
+		return Objects.hash(asignatura, convocatoria, cursoAcademico);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!(obj instanceof Nota))
 			return false;
-		}
+		Nota other = (Nota) obj;
+		return Objects.equals(asignatura, other.asignatura) && convocatoria == other.convocatoria
+				&& cursoAcademico == other.cursoAcademico;
 	}
 	
 	public int compareTo(Nota o) {
@@ -66,11 +64,9 @@ public record Nota(Asignatura asignatura, int cursoAcademico, TipoConvocatoria c
 		}
 		return r;
 	}
-
+	
 	public String toString() {
 		return asignatura.toString() + ", " + cursoAcademico + "-" + ((cursoAcademico % 100) + 1) + ", " + convocatoria + ", " + valor + ", " + getCalificacion(valor, matricula);
 	}
-	
-	
 	
 }

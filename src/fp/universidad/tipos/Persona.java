@@ -1,6 +1,9 @@
 package fp.universidad.tipos;
 
 import java.time.LocalDate;
+import java.util.Objects;
+
+import fp.utiles.Checkers;
 
 public class Persona implements Comparable<Persona> {
 	
@@ -29,34 +32,20 @@ public class Persona implements Comparable<Persona> {
 	}
 	
 	private void checkPersona(String dni, String email, String nombre, LocalDate fecha) {
-		if (dni.length() == 9) {
-			String numeros = dni.substring(0, 8);
-		    char letra = dni.charAt(8);
-		    if (!(numeros.chars().allMatch(Character::isDigit) && Character.isUpperCase(letra))) {
-		    	throw new IllegalArgumentException(
-						"El DNI debe de ser exactamente ocho dígitos seguidos de una letra mayúscula");
-		    } 
-		} else {
-			throw new IllegalArgumentException(
-					"El DNI debe de ser exactamente ocho dígitos seguidos de una letra mayúscula");
-		}
-		if (email == "") {
-			
-		} else if (!(email.contains("@"))) {
-			throw new IllegalArgumentException(
-					"El email debe contener una '@'");
-		}
-		
-		if (nombre.isEmpty()) {
-			throw new IllegalArgumentException("El mombre no puede estar vacío");
-		}
-		
-		if (fecha.isAfter(LocalDate.now())) {
-			throw new IllegalArgumentException("Fecha no válida: No puedes haber nacido mañana payasete");
-		} else if (fecha.isBefore(LocalDate.of(1900, 1, 1))) {
-			throw new IllegalArgumentException("Fecha no válida: Con esa edad casi con total seguridad estás bajo tierra");
-		}
-		
+		String numeros = dni.substring(0, 8);
+	    char letra = dni.charAt(8);
+		Checkers.check("El DNI debe de ser exactamente ocho dígitos seguidos de una letra mayúscula", 
+	    		(numeros.chars().allMatch(Character::isDigit) && Character.isUpperCase(letra)));
+		Checkers.check("El DNI debe de ser exactamente ocho dígitos seguidos de una letra mayúscula", 
+				dni.length() == 9);
+		Checkers.check("El email debe contener una '@'", 
+				email.contains("@"));
+		Checkers.check("El mombre no puede estar vacío", 
+				!nombre.isEmpty());
+		Checkers.check("Fecha no válida: No puedes haber nacido mañana payasete", 
+				!(fecha.isAfter(LocalDate.now())));
+		Checkers.check("Fecha no válida: Con esa edad casi con total seguridad estás bajo tierra", 
+				!(fecha.isBefore(LocalDate.of(1900, 1, 1))));		
 	}
 	
 	public String getDni() {
@@ -114,21 +103,20 @@ public class Persona implements Comparable<Persona> {
 		return r;
 	}
 
-	public boolean equals(Object o) {
-		if (o instanceof Persona) {
-			Persona a = (Persona) o;
-			if (this.dni == a.dni && this.nombre == a.nombre && this.apellidos == a.apellidos) {
-				return true;
-			} else {
-				return false;
-			}
-		} else {
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!(obj instanceof Persona))
 			return false;
-		}
+		Persona other = (Persona) obj;
+		return Objects.equals(apellidos, other.apellidos) && Objects.equals(dni, other.dni)
+				&& Objects.equals(nombre, other.nombre);
 	}
 	
+	@Override
 	public int hashCode() {
-		return this.dni.hashCode() + this.nombre.hashCode()*31 + this.apellidos.hashCode()*31*31;
+		return Objects.hash(apellidos, dni, nombre);
 	}
 	
 	public String toString() {

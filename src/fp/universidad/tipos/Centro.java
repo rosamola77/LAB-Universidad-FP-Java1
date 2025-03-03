@@ -55,6 +55,20 @@ public class Centro implements Comparable<Centro>{
 		}
 	}
 	
+	public int hashCode() {
+		return Objects.hash(direccion, espacios, nombre, plantas, sotanos);
+	}
+
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!(obj instanceof Centro))
+			return false;
+		Centro other = (Centro) obj;
+		return Objects.equals(direccion, other.direccion) && Objects.equals(espacios, other.espacios)
+				&& Objects.equals(nombre, other.nombre) && plantas == other.plantas && sotanos == other.sotanos;
+	}
+
 	public int compareTo(Centro c) {
 		int r = nombre.compareTo(c.nombre);
 		return r;
