@@ -2,6 +2,7 @@ package fp.universidad.tipos;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Expediente {
 	
@@ -22,11 +23,33 @@ public class Expediente {
 		r = r / notas.size();
 		return r;
 	}
+	
+	public int hashCode() {
+		return Objects.hash(notas);
+	}
+
+	public boolean equals(Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (!(o instanceof Expediente)) {
+			return false;
+		}
+		Expediente other = (Expediente) o;
+		return Objects.equals(notas, other.notas);
+	}
 
 	public List<Nota> getNotas() {
 		return notas;
 	}
 	
-	
+	void nuevaNota(Nota n) {
+		if (this.notas.contains(n)) {
+			this.notas.remove(n);
+			this.notas.add(n);
+		} else {
+		this.notas.add(n);
+		}
+	}
 	
 }

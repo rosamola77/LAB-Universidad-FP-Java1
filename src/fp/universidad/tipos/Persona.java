@@ -43,9 +43,7 @@ public class Persona implements Comparable<Persona> {
 		Checkers.check("El mombre no puede estar vacío", 
 				!nombre.isEmpty());
 		Checkers.check("Fecha no válida: No puedes haber nacido mañana payasete", 
-				!(fecha.isAfter(LocalDate.now())));
-		Checkers.check("Fecha no válida: Con esa edad casi con total seguridad estás bajo tierra", 
-				!(fecha.isBefore(LocalDate.of(1900, 1, 1))));		
+				!(fecha.isAfter(LocalDate.now())));	
 	}
 	
 	public String getDni() {

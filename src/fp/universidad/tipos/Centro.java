@@ -2,6 +2,8 @@ package fp.universidad.tipos;
 
 import java.util.*;
 
+import fp.utiles.Checkers;
+
 public class Centro implements Comparable<Centro>{
 
 	private String nombre, direccion;
@@ -50,9 +52,7 @@ public class Centro implements Comparable<Centro>{
 	}
 	
 	private void checkCentro(int plantas, int sotanos) {
-		if (plantas < 1 && sotanos < 0) {
-			throw new IllegalArgumentException("Los centros deben tener al menos una planta y cero sótanos");
-		}
+		Checkers.check("Los centros deben tener al menos una planta y cero sótanos", !(plantas < 1 && sotanos < 0));
 	}
 	
 	public int hashCode() {
@@ -84,20 +84,20 @@ public class Centro implements Comparable<Centro>{
 		return null;
 	}
 	
-	public HashSet<Despacho> getDespachos(Departamento d) {
-		//TODO
-		return null;
-	}
-
-	public HashSet<Profesores> getProfesores() {
-		//TODO
-		return null;
-	}
-	
-	public HashSet<Profesores> getProfesores(Departamento d) {
-		//TODO
-		return null;
-	}
+//	public HashSet<Despacho> getDespachos(Departamento d) {
+//		//TODO
+//		return null;
+//	}
+//
+//	public HashSet<Profesores> getProfesores() {
+//		//TODO
+//		return null;
+//	}
+//	
+//	public HashSet<Profesores> getProfesores(Departamento d) {
+//		//TODO
+//		return null;
+//	}
 	
 	public Espacio getEspacioMayorCapacidad() {
 		//TODO
