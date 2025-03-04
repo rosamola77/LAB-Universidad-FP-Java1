@@ -101,7 +101,6 @@ public class Persona implements Comparable<Persona> {
 		return r;
 	}
 
-	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
@@ -112,7 +111,6 @@ public class Persona implements Comparable<Persona> {
 				&& Objects.equals(nombre, other.nombre);
 	}
 	
-	@Override
 	public int hashCode() {
 		return Objects.hash(apellidos, dni, nombre);
 	}

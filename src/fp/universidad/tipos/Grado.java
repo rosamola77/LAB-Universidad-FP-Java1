@@ -13,14 +13,14 @@ public class Grado implements Comparable<Grado>{
 	private float minCreditosOptativas;
 	
 	public Grado(String nombre, Set<Asignatura> obligatorias, Set<Asignatura> optativas, float minCreditosOptativas) {
-		super();
+		checkGrado();
 		this.nombre = nombre;
 		this.obligatorias = obligatorias;
 		this.optativas = optativas;
 		this.minCreditosOptativas = minCreditosOptativas;
 	}
 	
-	public void checkGrado() {
+	private void checkGrado() {
 		Checkers.check("Todas las asignaturas optativas del grado deben tener el mismo número de créditos",
 				!checkCreditosOptativas(optativas));
 		Checkers.check("El número mínimo de créditos de asignaturas optativas que debe cursar un alumno debe estar comprendido entre cero y el número total de créditos de asignaturas optativas del grado", 
@@ -83,6 +83,22 @@ public class Grado implements Comparable<Grado>{
 		}
 		Grado other = (Grado) obj;
 		return Objects.equals(nombre, other.nombre);
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public Set<Asignatura> getObligatorias() {
+		return obligatorias;
+	}
+
+	public Set<Asignatura> getOptativas() {
+		return optativas;
+	}
+
+	public float getMinCreditosOptativas() {
+		return minCreditosOptativas;
 	}
 
 	public int compareTo(Grado g) {
