@@ -2,7 +2,7 @@
 # Proyecto de laboratorio: Gestión Grados Universitarios.
 # Parte I
 
-**Autores:** Toñi Reina
+**Autores:** Dixon Mayas
 
 **Revisores**: 
 
