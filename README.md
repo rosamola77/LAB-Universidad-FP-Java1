@@ -1,7 +1,7 @@
 ## Fundamentos de Programación
 # Proyecto de laboratorio: Gestión Grados Universitarios.
 
-**Autores:** Toñi Reina
+**Autores:** Dixon Mayas
 
 **Revisores:**
 
