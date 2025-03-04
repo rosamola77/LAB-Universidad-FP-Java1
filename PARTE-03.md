@@ -2,7 +2,7 @@
 # Proyecto de laboratorio: Gestión Grados Universitarios.
 # Parte III
 
-**Autores:** Toñi Reina
+**Autores:** Dixon Mayas
 
 **Objetivos:**
 
