@@ -15,27 +15,29 @@ public class Expediente {
 	
 	public double calcularMedia(List<Nota> notas) {
 		double r = 0.0;
+		int aprobadas = 0;
 		for (Nota nota : notas) {
 			if (nota.valor() >= 5) {
 				r = r + nota.valor();
+				aprobadas++;
 			}
 		}
-		r = r / notas.size();
+		r = r / aprobadas;
 		return r;
 	}
 	
 	public int hashCode() {
 		return Objects.hash(notas);
 	}
-
-	public boolean equals(Object o) {
-		if (this == o) {
+	
+	public boolean equals(Object obj) {
+		if (this == obj) {
 			return true;
 		}
-		if (!(o instanceof Expediente)) {
+		if (!(obj instanceof Expediente)) {
 			return false;
 		}
-		Expediente other = (Expediente) o;
+		Expediente other = (Expediente) obj;
 		return Objects.equals(notas, other.notas);
 	}
 
