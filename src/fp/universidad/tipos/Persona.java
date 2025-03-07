@@ -7,8 +7,12 @@ import fp.utiles.Checkers;
 
 public class Persona implements Comparable<Persona> {
 	
+	//INICIAL
+	
 	private String dni, nombre, apellidos, email;
 	private LocalDate fechaNacimiento;
+	
+	//Constructores
 	
 	public Persona(String dni, String nombre, String apellidos, String email, LocalDate fechaNacimiento) {
 		super();
@@ -31,6 +35,8 @@ public class Persona implements Comparable<Persona> {
 
 	}
 	
+	//Checkers
+	
 	private void checkPersona(String dni, String email, String nombre, LocalDate fecha) {
 		String numeros = dni.substring(0, 8);
 	    char letra = dni.charAt(8);
@@ -45,6 +51,8 @@ public class Persona implements Comparable<Persona> {
 		Checkers.check("Fecha no válida: No puedes haber nacido mañana payasete", 
 				!(fecha.isAfter(LocalDate.now())));	
 	}
+	
+	//Getters y setters
 	
 	public String getDni() {
 		return dni;
@@ -90,17 +98,15 @@ public class Persona implements Comparable<Persona> {
 		this.fechaNacimiento = fechaNacimiento;
 	}
 	
-	public int compareTo(Persona o) {
-		int r = apellidos.compareTo(o.getApellidos());
-		if (r == 0) {
-			r = nombre.compareTo(o.getNombre());
-			 if (r == 0) {
-					r = dni.compareTo(o.getDni());
-			 }
-		}
-		return r;
-	}
-
+	//Tostring
+	
+	public String toString() {
+		return dni + " - " + apellidos + ", " + nombre + " - " + 
+				fechaNacimiento.getDayOfMonth() + "/" + fechaNacimiento.getMonthValue() + "/" + fechaNacimiento.getYear();
+	}	
+	
+	//Hashcode y equals
+	
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
@@ -113,12 +119,19 @@ public class Persona implements Comparable<Persona> {
 	
 	public int hashCode() {
 		return Objects.hash(apellidos, dni, nombre);
+	}	
+	
+	//CompareTo
+	
+	public int compareTo(Persona o) {
+		int r = apellidos.compareTo(o.getApellidos());
+		if (r == 0) {
+			r = nombre.compareTo(o.getNombre());
+			 if (r == 0) {
+					r = dni.compareTo(o.getDni());
+			 }
+		}
+		return r;
 	}
-	
-	public String toString() {
-		return dni + " - " + apellidos + ", " + nombre + " - " + 
-				fechaNacimiento.getDayOfMonth() + "/" + fechaNacimiento.getMonthValue() + "/" + fechaNacimiento.getYear();
-	}
-	
-	
+
 }

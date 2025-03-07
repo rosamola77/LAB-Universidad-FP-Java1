@@ -8,9 +8,13 @@ import fp.utiles.Checkers;
 
 public class Profesor extends Persona {
 	
+	//INICIAL
+	
 	private TipoCategoria categoria;
 	private HashSet<Tutoria> tutorias;
-
+	
+	//Constructores
+	
 	public Profesor(String dni, String nombre, String apellidos, String email, LocalDate fechaNacimiento,
 			TipoCategoria categoria) {
 		super(dni, nombre, apellidos, email, fechaNacimiento);
@@ -19,10 +23,36 @@ public class Profesor extends Persona {
 		this.tutorias = new HashSet<Tutoria>();
 	}
 	
+	//Checkers
+	
 	private void checkProfesor() {
 		Checkers.check("La edad de un profesor no puede ser menor que 18", getEdad() >= 18);
 	}
-
+	
+	//Getters y setters
+	
+	public TipoCategoria getCategoria() {
+		return categoria;
+	}
+	
+	public void setCategoria(TipoCategoria categoria) {
+		this.categoria = categoria;
+	}
+	
+	public HashSet<Tutoria> getTutorias() {
+		return tutorias;
+	}
+	
+	//Tostring
+	
+	public String toString() {
+		return this.getDni() + " - " + this.getApellidos() + ", " + this.getNombre() + " - " + 
+				this.getFechaNacimiento().getDayOfMonth() + "/" + this.getFechaNacimiento().getMonthValue() + "/" + this.getFechaNacimiento().getYear() + 
+				" (" + this.getCategoria() + ")";
+	}	
+	
+	//Funcionalidades
+	
 	public void nuevaTutoria(LocalTime horaInicio, int duracion, DayOfWeek dia) {
 		Tutoria t = new Tutoria(dia, horaInicio, duracion);
 		this.tutorias.add(t);
@@ -36,26 +66,8 @@ public class Profesor extends Persona {
 		}
 	}
 	
-	public TipoCategoria getCategoria() {
-		return categoria;
-	}
-
-	public void setCategoria(TipoCategoria categoria) {
-		this.categoria = categoria;
-	}
-
-	public HashSet<Tutoria> getTutorias() {
-		return tutorias;
-	}
-
 	public void borraTutorias() {
 		this.tutorias.clear();
-	}
-	
-	public String toString() {
-		return getDni() + " - " + getApellidos() + ", " + getNombre() + " - " + 
-				getFechaNacimiento().getDayOfMonth() + "/" + getFechaNacimiento().getMonthValue() + "/" + getFechaNacimiento().getYear() + 
-				" (" + getCategoria() + ")";
 	}
 	
 }

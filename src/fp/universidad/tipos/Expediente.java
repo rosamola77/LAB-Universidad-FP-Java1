@@ -6,14 +6,19 @@ import java.util.Objects;
 
 public class Expediente {
 	
+	//INICIAL
+	
 	private List<Nota> notas;
 	
+	//Constructor
+	
 	public Expediente() {
-		super();
 		this.notas = new ArrayList<Nota>();
 	}
 	
-	public double calcularMedia(List<Nota> notas) {
+	//Calcular la media
+	
+	public double calcularMedia() {
 		double r = 0.0;
 		int aprobadas = 0;
 		for (Nota nota : notas) {
@@ -25,6 +30,20 @@ public class Expediente {
 		r = r / aprobadas;
 		return r;
 	}
+	
+	//Getters y setters
+	
+	public List<Nota> getNotas() {
+		return notas;
+	}	
+	
+	//Tostring
+	
+	public String toString() {
+		return notas.toString();
+	}	
+	
+	//Hashcode y equals
 	
 	public int hashCode() {
 		return Objects.hash(notas);
@@ -41,11 +60,9 @@ public class Expediente {
 		return Objects.equals(notas, other.notas);
 	}
 
-	public List<Nota> getNotas() {
-		return notas;
-	}
+	//Funcionalidades
 	
-	void nuevaNota(Nota n) {
+	public void nuevaNota(Nota n) {
 		if (this.notas.contains(n)) {
 			this.notas.remove(n);
 			this.notas.add(n);

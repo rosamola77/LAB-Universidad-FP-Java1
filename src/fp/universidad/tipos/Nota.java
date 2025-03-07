@@ -4,7 +4,7 @@ import java.util.Objects;
 
 import fp.utiles.Checkers;
 
-public record Nota(Asignatura asignatura, int cursoAcademico, TipoConvocatoria convocatoria, double valor, boolean matricula) implements Comparable<Nota>{
+public record Nota(Asignatura asignatura, int cursoAcademico, TipoConvocatoria convocatoria, float valor, boolean matricula) implements Comparable<Nota>{
 	
 	public Nota {
 		checkNota(valor, matricula);
@@ -68,5 +68,5 @@ public record Nota(Asignatura asignatura, int cursoAcademico, TipoConvocatoria c
 	public String toString() {
 		return asignatura.toString() + ", " + cursoAcademico + "-" + ((cursoAcademico % 100) + 1) + ", " + convocatoria + ", " + valor + ", " + getCalificacion(valor, matricula);
 	}
-	
+
 }

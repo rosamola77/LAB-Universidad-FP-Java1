@@ -1,20 +1,24 @@
 package fp.universidad.tipos;
 
 import java.time.LocalDate;
-import java.util.Objects;
-
 import fp.utiles.Checkers;
 
 public record Asignatura(String nombre, TipoAsignatura tipo, int codigo, float creditos, int curso) implements Comparable<Asignatura> {
+	
+		//INICIAL
 	
 		public Asignatura {
 			checkAsignatura(nombre, codigo, creditos);
 		}
 		
+		//Constructor alternativo
+		
 		public Asignatura(String nombre, TipoAsignatura tipo, int codigo, float creditos) {
 			this(nombre, tipo, codigo, creditos, LocalDate.now().getYear());
 		}
-
+		
+		//Checkers
+		
 		private void checkAsignatura(String nombre, int codigo, float creditos) {
 			Integer c = codigo;
 			Checkers.check("El nombre no puede estar vacío", !nombre.equals("") || !nombre.equals(null));
@@ -22,36 +26,44 @@ public record Asignatura(String nombre, TipoAsignatura tipo, int codigo, float c
 			Checkers.check("El código debe estar formado por siete dígitos", c.toString().length() == 7);
 			
 		}
-
+		
+		//Getters y setters
+		
 		public String getAcrónimo() {
 			//TODO
 			return null;
 		} 
-
+		
+		//Tostring
+		
 		public String toString() {
 			return "(" + codigo + ") " + nombre;
 		}
 		
-		@Override
+		//Hashcode y equals
+		
 		public int hashCode() {
-			return Objects.hash(codigo);
+			return Integer.valueOf(codigo).hashCode();
 		}
 
-		@Override
-		public boolean equals(Object obj) {
-			if (this == obj)
-				return true;
-			if (!(obj instanceof Asignatura))
-				return false;
-			Asignatura other = (Asignatura) obj;
-			return codigo == other.codigo;
+		public boolean equals(Object o) {
+	    	if (o instanceof Asignatura) {
+	    		Asignatura a = (Asignatura) o;
+	    		if (codigo == a.codigo) {
+	    			return true;
+	    		} else {
+	    			return false;
+	    		}
+	    	} else {
+	    		return false;
+	    	}
 		}
-
+		
+		//CompareTo
+		
 		public int compareTo(Asignatura o) {
 			int r = Integer.valueOf(codigo).compareTo(Integer.valueOf(o.codigo));
 			return r;
 		}
-		
-		
 
 }

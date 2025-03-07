@@ -2,8 +2,6 @@ package fp.universidad.tipos;
 
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
-import java.util.Objects;
-
 import fp.utiles.Checkers;
 
 import java.time.Duration;
@@ -11,10 +9,14 @@ import java.time.DayOfWeek;
 
 public record Tutoria(DayOfWeek dia, LocalTime horaInicio, LocalTime horaFin, int duracion) implements Comparable<Tutoria> {
 	
+	//INICIAL
+	
 	public Tutoria {
 		checkTutoria(dia, duracion);
 	}
-
+	
+	//Constructores alternativos
+	
 	public Tutoria(DayOfWeek dia, LocalTime horaInicio, LocalTime horaFin) {
 		this(dia, horaInicio, horaFin, (Duration.between(horaInicio, horaFin).toMinutesPart()));
 	}
@@ -22,7 +24,9 @@ public record Tutoria(DayOfWeek dia, LocalTime horaInicio, LocalTime horaFin, in
 	public Tutoria(DayOfWeek dia, LocalTime horaInicio, int duracion) {
 		this(dia, horaInicio, horaInicio.plusMinutes(duracion), duracion);
 	}
-
+	
+	//Checkers
+	
     private void checkTutoria(DayOfWeek dia, int duracion) {
     	if (duracion < 15) {
     		throw new IllegalArgumentException(
@@ -33,6 +37,8 @@ public record Tutoria(DayOfWeek dia, LocalTime horaInicio, LocalTime horaFin, in
     	Checkers.check("La tutoría debe de ser de al menos 15 minutos", 
     			duracion >= 15);
     }
+    
+    //Coger la inicial de la semana
     
     private char traducirDia(DayOfWeek dia) {
     	return switch(dia) {
@@ -45,7 +51,9 @@ public record Tutoria(DayOfWeek dia, LocalTime horaInicio, LocalTime horaFin, in
     		};
     	
     }
-
+    
+    //Getters y setters
+    
     public char getDia(DayOfWeek dia) {
         return traducirDia(dia);
     }
@@ -62,14 +70,22 @@ public record Tutoria(DayOfWeek dia, LocalTime horaInicio, LocalTime horaFin, in
         return duracion;
     }
     
+    //Tostring
+    
+    public String toString() {
+        return getDia(dia) + " " + getHoraInicio().truncatedTo(ChronoUnit.MINUTES) + "-" + getHoraFin().truncatedTo(ChronoUnit.MINUTES);
+    }
+    
+    //Hashcode y equals
+    
 	public int hashCode() {
-		return Objects.hash(dia, horaInicio);
+		return dia.hashCode() + horaInicio.hashCode()*31;
 	}
-
+	
     public boolean equals(Object o) {
     	if (o instanceof Tutoria) {
     		Tutoria t = (Tutoria) o;
-    		if (dia == t.dia && this.horaInicio == t.horaInicio) {
+    		if (dia == t.dia && horaInicio == t.horaInicio) {
     			return true;
     		} else {
     			return false;
@@ -78,6 +94,9 @@ public record Tutoria(DayOfWeek dia, LocalTime horaInicio, LocalTime horaFin, in
     		return false;
     	}
     }
+    
+    //CompareTo
+    
 	public int compareTo(Tutoria o) {
     	int r = dia.compareTo(o.dia);
     	if (r == 0) {
@@ -86,7 +105,4 @@ public record Tutoria(DayOfWeek dia, LocalTime horaInicio, LocalTime horaFin, in
     	return r;
     }
 
-    public String toString() {
-        return getDia(dia) + " " + getHoraInicio().truncatedTo(ChronoUnit.MINUTES) + "-" + getHoraFin().truncatedTo(ChronoUnit.MINUTES);
-    }
 }

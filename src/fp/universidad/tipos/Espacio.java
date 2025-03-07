@@ -3,11 +3,15 @@ package fp.universidad.tipos;
 import java.util.Objects;
 
 public class Espacio implements Comparable<Espacio>{
+	
+	//INICIAL
 
 	private String nombre;
 	private int capacidad, planta;
 	private TipoEspacio tipo;
-
+	
+	//Constructores
+	
 	public Espacio(String nombre, int capacidad, final int planta, TipoEspacio tipo) {
 		checkEspacio(capacidad);
 		this.nombre = nombre;
@@ -15,13 +19,17 @@ public class Espacio implements Comparable<Espacio>{
 		this.planta = planta;
 		this.tipo = tipo;
 	}
-
+	
+	//Checkers
+	
 	private void checkEspacio(int capacidad) {
 		if (capacidad <= 0) {
 			throw new IllegalArgumentException(
 					"La capacidad debe de ser mayor a 0");
 		}
 	}
+	
+	//Getters y setters
 	
 	public String getNombre() {
 		return nombre;
@@ -54,12 +62,13 @@ public class Espacio implements Comparable<Espacio>{
 	public String toString() {
 		return nombre + " (planta " + planta + ")";
 	}
-
+	
+	//Hashcode y equals
+	
 	public int hashCode() {
 		return Objects.hash(nombre, planta);
 	}
-
-	@Override
+	
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
@@ -69,6 +78,8 @@ public class Espacio implements Comparable<Espacio>{
 		return Objects.equals(nombre, other.nombre) && planta == other.planta;
 	}
 
+	//CompareTo
+	
 	public int compareTo(Espacio o) {
 		int r = Integer.valueOf(planta).compareTo(Integer.valueOf(o.planta));
 		if (r == 0) {
@@ -76,7 +87,5 @@ public class Espacio implements Comparable<Espacio>{
 		}
 		return r;
 	}
-	
-	
 	
 }

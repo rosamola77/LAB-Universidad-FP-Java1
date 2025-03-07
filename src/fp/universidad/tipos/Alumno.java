@@ -9,12 +9,16 @@ import fp.utiles.Checkers;
 public class Alumno extends Persona {
 	
 	private Set<Asignatura> asignaturas;
+	
+	//Constructores
 
 	public Alumno(String dni, String nombre, String apellidos, String email, LocalDate fechaNacimiento) {
 		super(dni, nombre, apellidos, email, fechaNacimiento);
 		checkAlumno();
 		this.asignaturas = new HashSet<Asignatura>();
 	}
+	
+	//Checkers
 	
 	private void checkAlumno() {
 		String numeros = this.getDni().substring(0, 8);
@@ -31,10 +35,20 @@ public class Alumno extends Persona {
 				!(this.getFechaNacimiento().isAfter(LocalDate.now())));	
 	}
 	
+	//Getters y setters
+	
 	public char getCurso() {
 		return '?';
 	}
-
+	
+	//To string
+	
+	public String toString() {
+		return "(" + getCurso() + "º) " + this.getDni() + " - " + this.getApellidos() + ", " + this.getNombre() + " - " + this.getFechaNacimiento();
+	}	
+	
+	//Funcionalidades
+	
 	public void matriculaAsignatura(Asignatura a) {
 		if (this.asignaturas.contains(a)) {
 			throw new IllegalArgumentException("La asignatura ya está matriculada en el alumno");
@@ -63,8 +77,4 @@ public class Alumno extends Persona {
 		return asignaturas;
 	}
 
-	public String toString() {
-		return "(" + getCurso() + "º) " + this.getDni() + " - " + this.getApellidos() + ", " + this.getNombre() + " - " + this.getFechaNacimiento();
-	}
-	
 }
