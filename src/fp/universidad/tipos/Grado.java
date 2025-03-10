@@ -5,20 +5,26 @@ import java.util.Set;
 
 import fp.utiles.Checkers;
 
-public class Grado implements Comparable<Grado>{
+public class Grado implements Comparable<Grado> {
+	
+	//INICIAL
 	
 	private String nombre;
 	private Set<Asignatura> obligatorias;
 	private Set<Asignatura> optativas;
 	private float minCreditosOptativas;
 	
+	//Constructores
+	
 	public Grado(String nombre, Set<Asignatura> obligatorias, Set<Asignatura> optativas, float minCreditosOptativas) {
-		checkGrado();
 		this.nombre = nombre;
 		this.obligatorias = obligatorias;
 		this.optativas = optativas;
 		this.minCreditosOptativas = minCreditosOptativas;
+		checkGrado();
 	}
+	
+	//Checkers
 	
 	private void checkGrado() {
 		Checkers.check("Todas las asignaturas optativas del grado deben tener el mismo número de créditos",
@@ -53,38 +59,19 @@ public class Grado implements Comparable<Grado>{
 			return false;
 		}
 	}
-
-	public float creditosObligatorias() {
-		float r = 0;
-		for (Asignatura i : this.obligatorias) {
-			r = r + i.creditos();
-		}
-		return r;
-	}
-
-	public float totalCreditosTitulo() {
-		return this.minCreditosOptativas + this.creditosObligatorias();
+	
+	//Getters y setters
+	
+	public Set<Asignatura> getAsiganturas() {
+		//TODO
+		return null;
 	}
 	
-	public String toString() {
-		return nombre;
+	public Asignatura getAsignatura() {
+		//TODO
+		return null;
 	}
-
-	public int hashCode() {
-		return Objects.hash(nombre);
-	}
-
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (!(obj instanceof Grado)) {
-			return false;
-		}
-		Grado other = (Grado) obj;
-		return Objects.equals(nombre, other.nombre);
-	}
-
+	
 	public String getNombre() {
 		return nombre;
 	}
@@ -100,20 +87,49 @@ public class Grado implements Comparable<Grado>{
 	public float getMinCreditosOptativas() {
 		return minCreditosOptativas;
 	}
+	
+	//Tostring
+	
+	public String toString() {
+		return nombre;
+	}
+	
+	//Hashcode y equals
+	
+	public int hashCode() {
+		return Objects.hash(nombre);
+	}
 
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (!(obj instanceof Grado)) {
+			return false;
+		}
+		Grado other = (Grado) obj;
+		return Objects.equals(nombre, other.nombre);
+	}
+	
+	//CompareTo
+	
 	public int compareTo(Grado g) {
 		int r = nombre.compareTo(g.nombre);
 		return r;
 	}
 	
-	public Set<Asignatura> getAsiganturas() {
-		//TODO
-		return null;
-	}
+	//Funcionalidades
 	
-	public Asignatura getAsignatura() {
-		//TODO
-		return null;
+	public float creditosObligatorias() {
+		float r = 0;
+		for (Asignatura i : this.obligatorias) {
+			r = r + i.creditos();
+		}
+		return r;
+	}
+
+	public float totalCreditosTitulo() {
+		return this.minCreditosOptativas + this.creditosObligatorias();
 	}
 	
 }

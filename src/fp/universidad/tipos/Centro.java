@@ -51,10 +51,30 @@ public class Centro implements Comparable<Centro>{
 		return espacios;
 	}
 	
+	public HashSet<Espacio> getDespachos() {
+		//TODO
+		return null;
+	}
+	
+//	public HashSet<Despacho> getDespachos(Departamento d) {
+//		//TODO
+//		return null;
+//	}
+//
+	public HashSet<Profesor> getProfesores() {
+		//TODO
+		return null;
+	}
+//	
+//	public HashSet<Profesores> getProfesores(Departamento d) {
+//		//TODO
+//		return null;
+//	}
+	
 	//ToString
 	
 	public String toString() {
-		return "[" + nombre + "]";
+		return nombre;
 	}	
 	
 	//Hashcode y equals
@@ -98,26 +118,6 @@ public class Centro implements Comparable<Centro>{
 		//TODO
 		return null;
 	}
-	
-	public HashSet<Espacio> getDespachos() {
-		//TODO
-		return null;
-	}
-	
-//	public HashSet<Despacho> getDespachos(Departamento d) {
-//		//TODO
-//		return null;
-//	}
-//
-	public HashSet<Profesor> getProfesores() {
-		//TODO
-		return null;
-	}
-//	
-//	public HashSet<Profesores> getProfesores(Departamento d) {
-//		//TODO
-//		return null;
-//	}
 	
 	public Espacio getEspacioMayorCapacidad() {
 		//TODO

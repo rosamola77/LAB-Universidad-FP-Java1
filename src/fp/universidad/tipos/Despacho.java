@@ -37,4 +37,10 @@ public class Despacho extends Espacio {
 		Checkers.check("El número de profesores supera la capacidad indicada", this.getCapacidad() >= this.profesores.size());	 
 	}
 	
+	// Restricción a los setters respecto a su superclase
+	
+	public void setTipo() {
+		throw new UnsupportedOperationException("No se puede cambiar el tipo de un despacho");
+	}
+	
 }
