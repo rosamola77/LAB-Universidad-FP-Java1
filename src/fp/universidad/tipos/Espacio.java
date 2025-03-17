@@ -2,12 +2,15 @@ package fp.universidad.tipos;
 
 import java.util.Objects;
 
+import fp.utiles.Checkers;
+
 public class Espacio implements Comparable<Espacio>{
 	
 	//INICIAL
 
 	private String nombre;
-	private int capacidad, planta;
+	private int capacidad;
+	private int planta;
 	private TipoEspacio tipo;
 	
 	//Constructores
@@ -18,6 +21,22 @@ public class Espacio implements Comparable<Espacio>{
 		this.capacidad = capacidad;
 		this.planta = planta;
 		this.tipo = tipo;
+	}
+	
+	public Espacio(String s) {
+	    String[] trozos = s.split(","); 
+	    
+	    Checkers.check("Cadena con formato no válido", trozos.length == 4);
+	    
+	    String nombre = trozos[0].trim();
+	    int planta = Integer.parseInt(trozos[1].trim());
+	    int capacidad = Integer.parseInt(trozos[2].trim());
+	    TipoEspacio tipo = TipoEspacio.valueOf(trozos[3].trim());
+	    
+	    this.nombre = nombre;
+	    this.planta = planta;
+	    this.capacidad = capacidad;
+	    this.tipo = tipo;
 	}
 	
 	//Checkers

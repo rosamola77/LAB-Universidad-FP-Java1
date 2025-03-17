@@ -19,17 +19,39 @@ public class Despacho extends Espacio {
 		this.profesores = profesores;
 	}
 
-	public Despacho(String nombre, int capacidad, int planta, TipoEspacio tipo, Profesor profesor) {
+	public Despacho(String nombre, int capacidad, int planta, Profesor profesor) {
 		super(nombre, capacidad, planta, TipoEspacio.OTRO);
 		this.profesores = new HashSet<Profesor>();
 		checkDespacho();
 		profesores.add(profesor);
 	}
-
-	public Despacho(String nombre, int capacidad, int planta, TipoEspacio tipo) {
+	
+	public Despacho(String nombre, int capacidad, int planta) {
 		super(nombre, capacidad, planta, TipoEspacio.OTRO);
 		this.profesores = new HashSet<Profesor>();
 	}
+	
+	public Despacho(String s) {
+        super(parseNombre(s), parsePlanta(s), parseCapacidad(s), TipoEspacio.OTRO);
+    }
+	
+    private static String parseNombre(String s) {
+        String[] trozos = s.split(",");
+        if (trozos.length != 3) {
+            throw new IllegalArgumentException("Cadena con formato no válido");
+        }
+        return trozos[0].trim();
+    }
+
+    private static int parsePlanta(String s) {
+        String[] trozos = s.split(",");
+        return Integer.parseInt(trozos[1].trim());
+    }
+
+    private static int parseCapacidad(String s) {
+        String[] trozos = s.split(",");
+        return Integer.parseInt(trozos[2].trim());
+    }
 	
 	//Checkers
 	
