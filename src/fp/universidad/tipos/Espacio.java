@@ -15,7 +15,7 @@ public class Espacio implements Comparable<Espacio>{
 	
 	//Constructores
 	
-	public Espacio(String nombre, int capacidad, final int planta, TipoEspacio tipo) {
+	public Espacio(String nombre, final int planta, int capacidad, TipoEspacio tipo) {
 		checkEspacio(capacidad);
 		this.nombre = nombre;
 		this.capacidad = capacidad;
@@ -42,10 +42,7 @@ public class Espacio implements Comparable<Espacio>{
 	//Checkers
 	
 	private void checkEspacio(int capacidad) {
-		if (capacidad <= 0) {
-			throw new IllegalArgumentException(
-					"La capacidad debe de ser mayor a 0");
-		}
+		Checkers.check("La capacidad debe ser mayor que 0", capacidad > 0);
 	}
 	
 	//Getters y setters

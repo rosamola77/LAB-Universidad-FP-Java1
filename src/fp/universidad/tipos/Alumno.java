@@ -18,6 +18,42 @@ public class Alumno extends Persona {
 		this.asignaturas = new HashSet<Asignatura>();
 	}
 	
+	public Alumno(String s) {
+		super(parseDni(s), parseNombre(s), parseApellidos(s), parseEmail(s), parseFechaNacimiento(s));
+		checkAlumno();
+		this.asignaturas = new HashSet<Asignatura>();
+	}
+	
+    private static String parseDni(String s) {
+        String[] trozos = s.split(",");
+        if (trozos.length != 5) {
+            throw new IllegalArgumentException("Cadena con formato no válido");
+        }
+        return trozos[0].trim();
+    }
+    
+    private static String parseNombre(String s) {
+    	String[] trozos = s.split(",");
+    	return trozos[1].trim();
+    }
+    
+    private static String parseApellidos(String s) {
+    	String[] trozos = s.split(",");
+    	return trozos[2].trim();
+    }
+    
+    private static LocalDate parseFechaNacimiento(String s) {
+    	String[] trozos = s.split(",");
+    	String[] ddmmyyyy = trozos[3].split("/");
+    	Checkers.check("Cadena con formato no válido", ddmmyyyy.length == 3);
+    	return LocalDate.of(Integer.valueOf(ddmmyyyy[2]), Integer.valueOf(ddmmyyyy[1]), Integer.valueOf(ddmmyyyy[0]));
+    }
+    
+    private static String parseEmail(String s) {
+    	String[] trozos = s.split(",");
+    	return trozos[4].trim();
+    }
+
 	//Checkers
 	
 	private void checkAlumno() {
@@ -38,6 +74,7 @@ public class Alumno extends Persona {
 	//Getters y setters
 	
 	public char getCurso() {
+		//TODO
 		return '?';
 	}
 	

@@ -13,7 +13,7 @@ public class TestNota {
 
 		Nota n1 = new Nota(asignatura1, 2024, TipoConvocatoria.PRIMERA, 10.0f, true);
 		Nota n2 = new Nota(asignatura2, 2023, TipoConvocatoria.SEGUNDA, 7.3f, false);
-		Nota n3 = new Nota(asignatura3, 2020, TipoConvocatoria.TRECERA, 5.1f, false);
+		Nota n3 = new Nota(asignatura3, 2020, TipoConvocatoria.TERCERA, 5.1f, false);
 		Nota n4 = new Nota(asignatura4, 2021, TipoConvocatoria.SEGUNDA, 8.54f, false);
 		
 		System.out.println(n1.toString());

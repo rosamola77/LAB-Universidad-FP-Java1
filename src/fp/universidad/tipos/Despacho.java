@@ -33,6 +33,7 @@ public class Despacho extends Espacio {
 	
 	public Despacho(String s) {
         super(parseNombre(s), parsePlanta(s), parseCapacidad(s), TipoEspacio.OTRO);
+        this.profesores = new HashSet<Profesor>();
     }
 	
     private static String parseNombre(String s) {

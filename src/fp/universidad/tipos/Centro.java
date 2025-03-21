@@ -56,20 +56,20 @@ public class Centro implements Comparable<Centro>{
 		return null;
 	}
 	
-//	public HashSet<Despacho> getDespachos(Departamento d) {
-//		//TODO
-//		return null;
-//	}
-//
+	public HashSet<Despacho> getDespachos(Departamento d) {
+		//TODO
+		return null;
+	}
+
 	public HashSet<Profesor> getProfesores() {
 		//TODO
 		return null;
 	}
-//	
-//	public HashSet<Profesores> getProfesores(Departamento d) {
-//		//TODO
-//		return null;
-//	}
+	
+	public HashSet<Profesor> getProfesores(Departamento d) {
+		//TODO
+		return null;
+	}
 	
 	//ToString
 	

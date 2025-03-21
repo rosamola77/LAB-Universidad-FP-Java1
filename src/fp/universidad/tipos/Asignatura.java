@@ -15,10 +15,46 @@ public record Asignatura(String nombre, TipoAsignatura tipo, int codigo, float c
 		
 		public Asignatura(String nombre, TipoAsignatura tipo, int codigo, float creditos) {
 			this(nombre, tipo, codigo, creditos, LocalDate.now().getYear());
+			checkAsignatura(nombre, codigo, creditos);
 		}
 		
-		//Checkers
+		public Asignatura(String s) {
+			this(parseNombre(s), parseTipo(s), parseCodigo(s), parseCreditos(s), parseCurso(s));
+			checkAsignatura(nombre, codigo, creditos);
+		}
 		
+		//Parsers
+		
+	    private static String parseNombre(String s) {
+	        String[] trozos = s.split("#");
+	        if (trozos.length != 5) {
+	            throw new IllegalArgumentException("Cadena con formato no válido");
+	        }
+	        return trozos[0].trim();
+	    }
+	    
+	    private static Integer parseCodigo(String s) {
+	    	String[] trozos = s.split("#");
+	    	return Integer.valueOf(trozos[1].trim());
+	    }
+	    
+	    private static Float parseCreditos(String s) {
+	    	String[] trozos = s.split("#");
+	    	return Float.valueOf(trozos[2].trim());
+	    }
+	    
+	    private static TipoAsignatura parseTipo(String s) {
+	    	String[] trozos = s.split("#");
+	    	return TipoAsignatura.valueOf(trozos[3].trim());
+	    }
+	    
+	    private static Integer parseCurso(String s) {
+	    	String[] trozos = s.split("#");
+	    	return Integer.valueOf(trozos[4].trim());
+	    }
+	    
+		//Checkers
+
 		private void checkAsignatura(String nombre, int codigo, float creditos) {
 			Integer c = codigo;
 			Checkers.check("El nombre no puede estar vacío", !nombre.equals("") || !nombre.equals(null));
