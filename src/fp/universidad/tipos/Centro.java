@@ -52,23 +52,47 @@ public class Centro implements Comparable<Centro>{
 	}
 	
 	public HashSet<Espacio> getDespachos() {
-		//TODO
-		return null;
+		HashSet<Espacio> res = new HashSet<>();
+		for (Espacio e : espacios) {
+			if (e instanceof Despacho) {
+				res.add(e);
+			}
+		}
+		return res;
 	}
 	
 	public HashSet<Despacho> getDespachos(Departamento d) {
-		//TODO
-		return null;
+		HashSet<Despacho> res = new HashSet<>();
+		for (Espacio e : espacios) {
+			if (e instanceof Despacho) {
+				((Despacho) e).getProfesores().retainAll(d.getProfesores());
+				if (((Despacho) e).getProfesores() == null || ((Despacho) e).getProfesores().size() > 0) {
+					res.add((Despacho) e);
+				}
+			}
+		}
+		return res;
 	}
 
-	public HashSet<Profesor> getProfesores() {
-		//TODO
-		return null;
+	public Set<Profesor> getProfesores() {
+		Set<Profesor> res = new HashSet<>();
+		for (Espacio e : espacios) {
+			if (e instanceof Despacho) {
+				res.addAll(((Despacho) e).getProfesores());
+			}
+		}
+		return res;
 	}
 	
-	public HashSet<Profesor> getProfesores(Departamento d) {
-		//TODO
-		return null;
+	public Set<Profesor> getProfesores(Departamento d) {
+		Set<Profesor> res = new HashSet<>();
+		for (Espacio e : espacios) {
+			if (e instanceof Despacho) {
+				res.addAll(((Despacho) e).getProfesores());
+			}
+		}
+		res.retainAll(d.getProfesores());
+		return res;
 	}
 	
 	//ToString
@@ -115,13 +139,48 @@ public class Centro implements Comparable<Centro>{
 	}
 	
 	public ArrayList<Integer> getConteosEspacios() {
-		//TODO
-		return null;
+		Integer[] res = {0, 0, 0, 0, 0};
+		for (Espacio e : espacios) {
+			switch (e.getTipo()) {
+			case TEORIA:
+				res[0]++;
+				break;
+			case LABORATORIO:
+				res[1]++;
+				break;
+			case SEMINARIO:
+				res[2]++;
+				break;
+			case EXAMEN:
+				res[3]++;
+				break;
+			case OTRO:
+				res[4]++;
+				break;
+			default:
+				break;
+			}
+		}
+		ArrayList<Integer> array = new ArrayList<>();
+		for (Integer n : res) {
+			array.add(n);
+		}
+		return array;
 	}
 	
 	public Espacio getEspacioMayorCapacidad() {
-		//TODO
-		return null;
-	}
-	
+        if (espacios == null || espacios.isEmpty()) {
+            throw new IllegalArgumentException("La lista de espacios está vacía o es nula.");
+        }
+
+        Espacio maxEspacio = null;
+
+        for (Espacio e : espacios) {
+            if (e.getCapacidad() > maxEspacio.getCapacidad()) {
+                maxEspacio = e;
+            }
+        }
+        return maxEspacio;
+    }
+
 }

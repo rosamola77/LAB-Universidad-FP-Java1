@@ -74,8 +74,13 @@ public class Alumno extends Persona {
 	//Getters y setters
 	
 	public char getCurso() {
-		//TODO
-		return '?';
+		int res = 0;
+		for (Asignatura a : asignaturas) {
+			if (a.curso() > res) {
+				res = a.curso();
+			}
+		}
+		return String.valueOf(res).charAt(0);
 	}
 	
 	//To string

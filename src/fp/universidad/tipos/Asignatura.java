@@ -66,8 +66,14 @@ public record Asignatura(String nombre, TipoAsignatura tipo, int codigo, float c
 		//Getters y setters
 		
 		public String getAcrónimo() {
-			//TODO
-			return null;
+			String res = "";
+			char[] chararray = this.nombre.toCharArray();
+			for (char c : chararray) {
+				if (c >= 'A' && c <= 'Z') {
+					res.concat(String.valueOf(c));
+				}
+			}
+			return res;
 		} 
 		
 		//Tostring

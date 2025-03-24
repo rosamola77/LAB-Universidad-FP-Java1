@@ -60,6 +60,12 @@ public class Despacho extends Espacio {
 		Checkers.check("El número de profesores supera la capacidad indicada", this.getCapacidad() >= this.profesores.size());	 
 	}
 	
+	//Getters y setters
+	
+	public Set<Profesor> getProfesores() {
+		return profesores;
+	}
+	
 	// Restricción a los setters respecto a su superclase
 	
 	public void setTipo() {
